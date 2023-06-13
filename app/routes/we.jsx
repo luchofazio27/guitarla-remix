@@ -3,8 +3,8 @@ import styles from "~/styles/we.css";
 
 export function meta() {
   return [
-    { title: "GuitarLA - Sobre Nosotros" },
-    { description: "Venta de guitarras, bloq de música" },
+    {title: "GuitarLA - Sobre Nosotros"},
+    {description: "Venta de guitarras, bloq de música"},
   ];
 }
 
