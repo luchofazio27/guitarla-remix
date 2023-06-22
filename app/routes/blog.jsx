@@ -1,22 +1,22 @@
 import { useLoaderData } from "@remix-run/react";
-import Post from "~/components/post";
+import ListPosts from "~/components/list-posts";
 import { getPosts } from "~/models/posts.server";
-import styles from '~/styles/blog.css'
+import styles from "~/styles/blog.css";
 
 export function meta() {
   return [
-    {title: "GuitarLA - Nuestro Blog"},
-    {description: "GuitarLA - Blog de música y venta de guitarras"},
+    { title: "GuitarLA - Nuestro Blog" },
+    { description: "GuitarLA - Blog de música y venta de guitarras" },
   ];
 }
 
 export function links() {
   return [
     {
-      rel: 'stylesheet',
-      href: styles
-    }
-  ]
+      rel: "stylesheet",
+      href: styles,
+    },
+  ];
 }
 
 export async function loader() {
@@ -29,12 +29,7 @@ function Blog() {
 
   return (
     <main className="container">
-      <h2 className="heading">Blog</h2>
-      <div className="blog">
-        {posts.map((post) => (
-          <Post key={post.id} post={post.attributes} />
-        ))}
-      </div>
+      <ListPosts posts={posts} />
     </main>
   );
 }
