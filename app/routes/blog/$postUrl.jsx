@@ -63,7 +63,7 @@ export default function Post() {
   const post = useLoaderData();
   const { content, image, title, url, publishedAt } = post?.data[0]?.attributes;
   return (
-    <article className="container post mt-3">
+    <article className="post mt-3">
       <img
         className="image"
         src={image?.data?.attributes?.url}

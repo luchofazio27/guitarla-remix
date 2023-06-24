@@ -9,7 +9,12 @@ import stylesGuitars from "~/styles/guitars.css"
 import stylesPosts from "~/styles/blog.css"
 import stylesCourse from "~/styles/course.css"
 
-export function meta() {}
+export function meta() {
+  return [
+    {title: "GuitarLA - Remix"},
+    {description: "GuitarLA Remix, inicio"},
+  ];
+}
 
 export function links() {
   return [

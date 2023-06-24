@@ -3,16 +3,7 @@ import { getGuitar } from "~/models/guitars.server";
 import { useRouteError } from "@remix-run/react";
 import { isRouteErrorResponse } from "@remix-run/react";
 import { Link } from "@remix-run/react";
-import styles from "~/styles/guitars.css";
 
-export function links() {
-  return [
-    {
-      rel: "stylesheet",
-      href: styles,
-    },
-  ];
-}
 
 /** Manejo de errores */
 export function ErrorBoundary() {
@@ -63,7 +54,7 @@ function Guitar() {
   const { name, description, image, price } = guitar.data[0].attributes;
 
   return (
-    <main className="container guitar">
+    <div className="guitar">
       <img
         className="image"
         src={image.data.attributes.url}
@@ -75,7 +66,7 @@ function Guitar() {
         <p className="text">{description}</p>
         <p className="price">{price}</p>
       </div>
-    </main>
+    </div>
   );
 }
 
