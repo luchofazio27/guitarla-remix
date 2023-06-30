@@ -35,7 +35,6 @@ export function links() {
 
 export async function loader() {
   const [guitars, posts, course] = await Promise.all([getGuitars(), getPosts(), getCourse()]);
-console.log(course)
   return {
     guitars: guitars.data,
     posts: posts.data,

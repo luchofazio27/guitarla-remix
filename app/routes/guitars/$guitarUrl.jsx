@@ -1,9 +1,9 @@
+import { useState } from "react";
 import { useLoaderData } from "@remix-run/react";
 import { getGuitar } from "~/models/guitars.server";
 import { useRouteError } from "@remix-run/react";
 import { isRouteErrorResponse } from "@remix-run/react";
 import { Link } from "@remix-run/react";
-
 
 /** Manejo de errores */
 export function ErrorBoundary() {
@@ -50,6 +50,7 @@ export async function loader({ request, params }) {
 }
 
 function Guitar() {
+  const [amount, setAmount] = useState(0);
   const guitar = useLoaderData();
   const { name, description, image, price } = guitar.data[0].attributes;
 
@@ -65,6 +66,21 @@ function Guitar() {
         <h3>{name}</h3>
         <p className="text">{description}</p>
         <p className="price">{price}</p>
+
+        <form className="form">
+          <label>Cantidad</label>
+
+          <select onChange={(e) => setAmount(+e.target.value)} id="amount">
+            <option value="">-- Seleccione --</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+
+          <input type="submit" value="Agregar al carrito" />
+        </form>
       </div>
     </div>
   );
