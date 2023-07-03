@@ -8,7 +8,7 @@ export default function Post({post}) {
   return (
     <article className="post">
         <img className="image" src={image.data.attributes.formats.small.url} alt={`imagen blog ${title}`} />
-        <div className="container">
+        <div className="content">
             <h3>{title}</h3>
             <p className="date">{formatDate(publishedAt)}</p>
             <p className="summary">{content}</p>

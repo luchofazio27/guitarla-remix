@@ -53,9 +53,9 @@ function Index() {
 
       <Course course={course.attributes}/>
 
-      <section className="container">
+      <main className="container">
         <ListPosts posts={posts}/>
-      </section>
+      </main>
     </>
   );
 }

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useLoaderData } from "@remix-run/react";
+import { useLoaderData, useOutletContext } from "@remix-run/react";
 import { getGuitar } from "~/models/guitars.server";
 import { useRouteError } from "@remix-run/react";
 import { isRouteErrorResponse } from "@remix-run/react";
@@ -50,9 +50,29 @@ export async function loader({ request, params }) {
 }
 
 function Guitar() {
+  const {addCart} = useOutletContext()
   const [amount, setAmount] = useState(0);
   const guitar = useLoaderData();
   const { name, description, image, price } = guitar.data[0].attributes;
+
+  const handleSubmit = e => {
+    e.preventDefault();
+
+    if(amount < 1) {
+      alert('Debes seleccionar una cantidad')
+      return
+    }
+
+    const selectedGuitar = {
+      id: guitar.data[0].id,
+      image: image.data.attributes.url,
+      name,
+      price,
+      amount
+    }
+
+    addCart(selectedGuitar)
+  }
 
   return (
     <div className="guitar">
@@ -67,11 +87,11 @@ function Guitar() {
         <p className="text">{description}</p>
         <p className="price">{price}</p>
 
-        <form className="form">
-          <label>Cantidad</label>
+        <form onSubmit={handleSubmit} className="form">
+          <label htmlFor="amount">Cantidad</label>
 
           <select onChange={(e) => setAmount(+e.target.value)} id="amount">
-            <option value="">-- Seleccione --</option>
+            <option value="0">-- Seleccione --</option>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
