@@ -76,13 +76,19 @@ export default function App() {
     setCart(updatedCart)
   }
 
+  const deleteGuitar = id => {
+    const updatedCart = cart.filter( guitarState => guitarState.id !== id)
+    setCart(updatedCart)
+  }
+
   return (
     <Document>
       <Outlet
       context={{
         addCart,
         cart,
-        updateAmount
+        updateAmount,
+        deleteGuitar
       }}
       />
     </Document>

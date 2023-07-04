@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { useOutletContext } from "@remix-run/react";
 import styles from "~/styles/cart.css";
 
@@ -21,8 +22,17 @@ export function meta() {
 }
 
 function Cart() {
-  const { cart, updateAmount } = useOutletContext();
-  console.log(cart);
+  const [total, setTotal] = useState(0);
+  const { cart, updateAmount, deleteGuitar } = useOutletContext();
+
+  useEffect(() => {
+    const totalCalculation = cart.reduce(
+      (total, product) => total + product.amount * product.price,
+      0
+    );
+    setTotal(totalCalculation);
+  }, [cart]);
+
   return (
     <main className="container">
       <h1 className="heading">Carrito de compras</h1>
@@ -49,10 +59,12 @@ function Cart() {
                     <select
                       value={product.amount}
                       className="select"
-                      onChange={e => updateAmount({
-                        amount: +e.target.value,
-                        id: product.id
-                      })}
+                      onChange={(e) =>
+                        updateAmount({
+                          amount: +e.target.value,
+                          id: product.id,
+                        })
+                      }
                     >
                       <option value="1">1</option>
                       <option value="2">2</option>
@@ -68,13 +80,21 @@ function Cart() {
                       Subtotal: $ <span>{product.amount * product.price}</span>
                     </p>
                   </div>
+
+                  <button
+                    type="button"
+                    className="btn_delete"
+                    onClick={() => deleteGuitar(product.id)}
+                  >
+                    X
+                  </button>
                 </div>
               ))}
         </div>
 
         <aside className="summary">
           <h3>Resumen del Pedido</h3>
-          <p>Total a pagar: $</p>
+          <p>Total a pagar: ${total}</p>
         </aside>
       </div>
     </main>
