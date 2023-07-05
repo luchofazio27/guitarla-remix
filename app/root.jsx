@@ -1,11 +1,5 @@
-import { useState } from "react";
-import {
-  Meta,
-  Links,
-  Outlet,
-  Scripts,
-  LiveReload,
-} from "@remix-run/react";
+import { useState, useEffect } from "react";
+import { Meta, Links, Outlet, Scripts, LiveReload } from "@remix-run/react";
 import styles from "~/styles/index.css";
 import Header from "~/components/header";
 import Footer from "~/components/footer";
@@ -46,50 +40,58 @@ export function links() {
 
 export default function App() {
 
-  const [cart, setCart] = useState([])
+  const cartLS =
+    typeof window !== "undefined"
+      ? JSON.parse(localStorage.getItem("cart")) ?? []
+      : null;
+  const [cart, setCart] = useState(cartLS);
 
-  const addCart = guitar => {
-    if(cart.some(guitarState => guitarState.id === guitar.id)) {
+  useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(cart))
+  }, [cart]);
+
+  const addCart = (guitar) => {
+    if (cart.some((guitarState) => guitarState.id === guitar.id)) {
       //Iterar sobre el arreglo, e identificar el elemento duplicado
-      const updatedCart = cart.map( guitarState => {
-        if(guitarState.id === guitar.id) {
+      const updatedCart = cart.map((guitarState) => {
+        if (guitarState.id === guitar.id) {
           //Reescribir la cantidad
-          guitarState.amount = guitar.amount
+          guitarState.amount = guitar.amount;
         }
-        return guitarState
-      })
+        return guitarState;
+      });
       //Añadir al carrito
-      setCart(updatedCart)
+      setCart(updatedCart);
     } else {
       //Registro nuevo, agregar al carrito
-      setCart([...cart, guitar])
+      setCart([...cart, guitar]);
     }
-  }
+  };
 
-  const updateAmount = guitar => {
-    const updatedCart = cart.map(guitarState => {
-      if(guitarState.id === guitar.id) {
-        guitarState.amount = guitar.amount
+  const updateAmount = (guitar) => {
+    const updatedCart = cart.map((guitarState) => {
+      if (guitarState.id === guitar.id) {
+        guitarState.amount = guitar.amount;
       }
-      return guitarState
-    })
-    setCart(updatedCart)
-  }
+      return guitarState;
+    });
+    setCart(updatedCart);
+  };
 
-  const deleteGuitar = id => {
-    const updatedCart = cart.filter( guitarState => guitarState.id !== id)
-    setCart(updatedCart)
-  }
+  const deleteGuitar = (id) => {
+    const updatedCart = cart.filter((guitarState) => guitarState.id !== id);
+    setCart(updatedCart);
+  };
 
   return (
     <Document>
       <Outlet
-      context={{
-        addCart,
-        cart,
-        updateAmount,
-        deleteGuitar
-      }}
+        context={{
+          addCart,
+          cart,
+          updateAmount,
+          deleteGuitar,
+        }}
       />
     </Document>
   );
