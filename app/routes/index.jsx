@@ -13,6 +13,7 @@ export function meta() {
   return [
     {title: "GuitarLA - Remix"},
     {description: "GuitarLA Remix, inicio"},
+    { name: "viewport", content: "width=device-width, initial-scale=1.0" }
   ];
 }
 
