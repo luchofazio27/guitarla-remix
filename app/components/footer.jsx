@@ -6,7 +6,7 @@ function Footer() {
         <div className="container content">
             <Navigation />
 
-            <p className="copyright">Todos los derechos reservados { new Date().getFullYear() }</p>
+            <p className="copyright">Todos los derechos reservados{ new Date().getFullYear() }</p>
         </div>
     </footer>
   )
